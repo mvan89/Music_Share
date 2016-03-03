@@ -1,0 +1,15 @@
+body {
+	background-image: url('http://www.techagesite.com/music-wallpaper/1600x1200-rock-music-speaker-background-desktop.jpg');
+  	background-size:     cover; 
+  	background-repeat:   no-repeat;
+ 	background-position: center center;
+ 	background-color: transparent;
+}
+
+
+iframe {
+	padding-left: 200px;
+}
+button {
+	padding-right: 200px;
+}

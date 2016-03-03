@@ -1,0 +1,134 @@
+<html ng-app="myApp">
+<head>
+	<title>Project X</title>
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	  	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+		<link rel="stylesheet" href="./static/stylesheets/style.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>             
+
+		<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+		<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+		
+
+		<script type="text/javascript">
+
+		var myApp = angular.module('myApp', ['ngRoute']);
+
+		myApp.filter('scEmbedUrl', function($sce) {
+	    	return function(data){
+	      		     return $sce.trustAsResourceUrl("http://w.soundcloud.com/player/?url="+data.uri+"&show_artwork=false&liking=false&sharing=false&auto_play=false")
+	    			}
+	  	});
+
+		myApp.config(function ($routeProvider){
+			$routeProvider
+			.when('/', {templateUrl: 'static/partials/playlist.html'})
+			.when('/playlist', {templateUrl: 'static/partials/playlist.html'})
+			.when('/search', {templateUrl: 'static/partials/search.html'})
+			.otherwise({redirectTo: '/'});
+		});
+
+		myApp.factory('musicFactory', function ($http){
+			var factory = {};
+			var music = [];
+			var tracks = [];
+
+			factory.searchSong = function(data, callback){
+				console.log("getting data");
+				music = [];
+				SC.initialize({
+		  		client_id: '2610bdc20d4e66adc57c1db501c7de12',
+		  		redirect_uri: 'https://soundcloud.com/connect'
+			});
+
+				SC.get('/tracks',  {
+		  		q: data.track, 
+
+					}).then(function(tracks) {
+					music.push(tracks);
+					callback(music);
+
+					console.log(data.track);
+			});
+			};
+
+			factory.addSong = function (x, callback){
+				console.log(x);
+				$http.post('/addsongs', x).success(function(data){
+					tracks.push(data);
+					callback(tracks);
+				})
+			}		
+
+			factory.deleteSong = function (x, callback){
+				console.log(x,"factory delete")
+				$http.delete('/songs/'+ x._id).success(function(data){
+				var index = tracks.indexOf(x);
+				tracks.splice(index, 1);
+				callback(tracks);
+				})
+			}
+
+
+			factory.index = function(callback){
+				$http.get('/addsongs').success(function(data){
+					tracks = data;
+					callback(tracks);
+				})
+			}
+		
+			return factory;
+
+	});
+		myApp.controller('tracksController', function ($scope, musicFactory){
+			$scope.tracks = [];
+			$scope.songs = [];
+			
+			$scope.searchSong = function(){
+				musicFactory.searchSong($scope.newtrack, function (data){
+					$scope.tracks = data;
+					console.log(data);
+				})
+			};
+
+			$scope.addSong = function(x){
+				musicFactory.addSong(x, function (data){
+					$scope.songs = data;
+				})
+			};
+
+			$scope.deleteSong = function(x){
+				console.log("song name", x)
+				musicFactory.deleteSong(x, function(data){
+					$scope.songs = data;
+				});
+			}
+
+			musicFactory.index(function (data){
+				$scope.songs = data;
+				console.log($scope.songs);
+			});
+		});
+
+		
+		</script>
+
+</head>
+<body>
+        <nav>
+	        <div class="nav-wrapper container">
+	           	
+	              <h1 class="brand-logo">Ditto's Party</h1>
+	              <ul class="right">
+	                 <li><a href="#/playlist">Playlist</a></li>
+	                 <li><a href="#/search">Search</a></li>
+	              </ul>
+	          	
+	        </div>	
+        </nav>
+<div ng-view=''></div>
+
+</body>
+</html>
