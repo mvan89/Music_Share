@@ -3,49 +3,24 @@
 	<title>Project X</title>
 </head>
 <body>
-	<div ng-controller='tracksController'>
-<!--         <nav>
-	        <div class="nav-wrapper container">
-	           	
-	              <h1 class="brand-logo">Ditto's Party</h1>
-	              <ul class="right">
-	                 <li><a href="#/playlist">Playlist</a></li>
-	              </ul>
-	          	
-	        </div>	
-        </nav> -->
-    <div class="container">
-                <div class="row">
-    				<div class="input-field col s6">
-      				<form>
-						<input type="text" value="search here" type="text" class="validate" ng-model="newtrack.track">
-						<label class="active">Search here</label>
-						<input type="submit" class="btn waves-effect waves-light"ng-click="searchSong()" value="Search">
-					</form>
-    				</div>       	
-    			</div>
-  	</div>
+  <div ng-controller='tracksController' id="container">
+        <div class="row">
+			<div class="input-field col s6">
+				<form>
+					<input type="text" value="search here" type="text" class="validate" ng-model="newtrack.track">
+					<label class="active">Search here</label>
+					<input type="submit" class="btn waves-effect waves-light"ng-click="searchSong()">
+				</form>
+			</div>       	
+		</div>
+			<div ng-repeat="x in tracks[0]">
+				<iframe id="soundcloud_widget"
+				ng-src="{{ x | scEmbedUrl}}"
+				height="120" length="400"
+				frameborder="no"></iframe> 
 
-              	
-		
-		
-      	
-<!-- 			<form>
-				<input type="text" ng-model="newtrack.track" placehold="Song name">
-				<input type="submit" class="btn waves-effect waves-light"ng-click="searchSong()" value="Search">
-
-			</form> -->
-		
-
-				<div ng-repeat="x in tracks[0]">
-		    		  <iframe id="soundcloud_widget"
-				      ng-src="{{ x | scEmbedUrl}}"
-				      height="120" length="400"
-				      frameborder="no"></iframe> 
-				      <button ng-click="addSong(x)" class="btn waves-effect waves-light" type="submit" name="action">Add 				
-  					</button>		
-				</div>
-		
+				<button ng-click="addSong(x)" class="btn waves-effect waves-light" type="submit" name="action"><i class="fa fa-plus"></i> 	</button>	
+			</div>
 	</div>
 </body>
 </html>

@@ -3,7 +3,7 @@ var tracks = mongoose.model("tracks");
 module.exports = (function() {
   return {
     addsongs: function(req, res){
-    	console.log("songs.js: this is the req.body",req.body)
+    	// console.log("songs.js: this is the req.body",req.body);
     	var new_song = new tracks({tracks: req.body});
     	new_song.save(function(err, inputed_song){
     		if(err){

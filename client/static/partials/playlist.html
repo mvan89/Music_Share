@@ -1,31 +1,23 @@
 <html>
 <head>
-	<title>Project X</title>
+	<title>Music Share</title>
 </head>
 <body>
 	<div ng-controller='tracksController'>
 
-<!--         <nav>
-           <div class="nav-wrapper container">
-              <h1 class="brand-logo">Ditto's Lair</h1>
-              <ul class="right">
-                 <li><a href="#/search">Search</a></li>
-              </ul>
-           </div>
-        </nav> -->
-
-       <table>
-			<tr div ng-repeat="x in songs">
-				<td>
-					<iframe id="soundcloud_widget"
-				      ng-src="{{ x.tracks | scEmbedUrl}}"
-				      height="100"
-				      frameborder="no"></iframe></td>	
-				<td><button class="btn waves-effect waves-light red disabled" ng-click="deleteSong(x)" type="submit" >Remove<i class="material-icons right"></i></button></td>
-				
-			</tr>
-		</table>
-
-
+		<div id="container">
+	       <table>
+				<tr div ng-repeat="x in songs">
+					<td>
+						<iframe id="soundcloud_widget"
+					      ng-src="{{ x.tracks | scEmbedUrl}}"
+					      height="100"
+					      frameborder="no"></iframe>
+					      	<button class="btn waves-effect waves-light red disabled" ng-click="deleteSong(x)" type="submit" ><i class="fa fa-times"></i></button>
+					</td>	
+				</tr>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

@@ -1,15 +1,44 @@
-body {
-	background-image: url('http://www.techagesite.com/music-wallpaper/1600x1200-rock-music-speaker-background-desktop.jpg');
-  	background-size:     cover; 
-  	background-repeat:   no-repeat;
- 	background-position: center center;
- 	background-color: transparent;
-}
-
-
 iframe {
-	padding-left: 200px;
+	vertical-align: top;
+	opacity: 0.9;
+
 }
 button {
-	padding-right: 200px;
+	opacity: 0.7;
+} 
+
+body {
+ 	background-color: transparent;
+ 	background-size: 100%; 
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url(/static/images/music-4.jpg);
+	background-attachment: fixed;
+}
+nav {
+		z-index: 1;
+		top: 0;
+		left: 0;
+		right: 0;
+		background: #4d4d4d;
+		opacity: 0.6;
+/*		background: rgba(255, 255, 255, 0.1);*/
+    }
+table{
+	margin-top: 20px;
+	padding-top: 2000px;
+}
+.active{
+	color:black;
+}
+.btn{
+	background-color: black;
+	color:white;
+}
+#container{
+
+	position: relative;
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 50px 20px;
 }

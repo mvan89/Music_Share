@@ -6,12 +6,12 @@ var tracks = require('./../controllers/songs.js');
   	}),
 
   	app.get('/addsongs', function (req,res){
-  		console.log("index of songs");
+  		// console.log("index of songs");
   		tracks.index(req,res);
   	});
 
   	app.delete('/songs/:id', function(req,res){
-  		console.log('delete in routes');
+  		// console.log('delete in routes');
   		tracks.destroy(req,res);
   	})
   };
